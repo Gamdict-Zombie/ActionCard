@@ -7,6 +7,7 @@ using Unity.Mathematics;
 
 public class HandManager : MonoBehaviour
 {
+    public DeckManager deckManager;
     public GameObject cardPrefab; //Assign card prefab in inspector
     public Transform handTransform; //Root of the hand position
     public float fanSpread = -7.5f;
@@ -16,25 +17,23 @@ public class HandManager : MonoBehaviour
 
     void Start()
     {
-        AddCardToHand();
-        AddCardToHand();
-        AddCardToHand();
-        AddCardToHand();
-        AddCardToHand();
-        AddCardToHand();
+
     }
-    private void AddCardToHand()
+    public void AddCardToHand(Card cardData)
     {
         //Instantiate the card
         GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
         cardsInHand.Add(newCard);
+
+        //Set the CardData of the instantiated card
+        newCard.GetComponent<CardDisplay>().cardData = cardData;
 
         UpdateHandVisuals();
     }
 
     void Update()
     {
-        UpdateHandVisuals();
+        //UpdateHandVisuals();
     }
 
     private void UpdateHandVisuals()
